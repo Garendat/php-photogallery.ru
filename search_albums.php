@@ -65,7 +65,14 @@ class SearchAlbum{
         foreach ($this->folders as $key => $value) {
             if(array_key_exists('src', $value)){
                 $src = $value['src'];
-                $result[] = '<a class="folders" href="'.$key.'"><img src="'.$src.'" width="800" height="600" alt="Click"></a>';
+                $img = '<img src="'.$src.'"/>';
+                $figure = '<figure class ="folder" id="'.$key.'">'. $img .
+                '<figcaption>
+                    <h2>Folder</h2>
+                </figcaption>
+
+                </figure>';
+                $result[] = $figure;
         }    else {
                 $result[] = '<a class="folders" href="'.$key.'">Click</a>';
         }
