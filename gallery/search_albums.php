@@ -5,25 +5,20 @@ class SearchAlbum{
     public $folders = array();
     private $fileFormats = ['jpg', 'png', 'jpeg', 'gif'];
 
+
     function __construct($path){
         foreach(scandir($path) as $nameDir){
-            if($nameDir == '.' or $nameDir == '..') continue;
+            if($nameDir == '.' or $nameDir == '..' or $nameDir == basename(__DIR__)) continue;
             if(!is_dir($nameDir)) continue;
 
             $arr = $this-> searchPictures($path, $nameDir);
             if ($arr) $this -> folders["$nameDir"] = $arr;
-
-                                                                               // функция для поиска совпадения, если оно есть, а если его нет,
-                                                                                  // то вставка дефолтного изображения
-                                                                                  // добавление в folders массив, где ключ - путь до папки,
-                                                                                  // значение пути до фотографий
-
         }
 
 
     }
 
-    private function doubleName($nameDir, $fileName){
+    private function doubleName($nameDir, $fileName){  // проверка совпадения имени с картинкой
         $word1  = pathinfo($fileName, PATHINFO_FILENAME);
 
         if(substr($nameDir, strlen($nameDir) - strlen($word1)) == $word1 or $word1 == $fileName){
@@ -52,45 +47,33 @@ class SearchAlbum{
 
         }
         closedir($album);
+        if(!array_key_exists('src', $pictures) and $pictures){
+            $pictures['src'] = "./". basename(__DIR__)."/alternative.jpg";
+        }
 
         return $pictures;
 
     }
+
     public function isFolders(){
         if ($this->folders) return true;
         return false;
-    }
+    } //вывод true или false в зависимости от того есть у нас что-то или нет
+
     public function getFolders(){
         $result = [];
         foreach ($this->folders as $key => $value) {
-            if(array_key_exists('src', $value)){
-                $src = $value['src'];
-                $img = '<img src="'.$src.'"/>';
-                $figure = '<figure class ="folder" id="'.$key.'">'. $img .
-                '<figcaption>
-                    <h2>Folder</h2>
-                </figcaption>
 
-                </figure>';
-                $result[] = $figure;
-        }    else {
-                $result[] = '<a class="folders" href="'.$key.'">Click</a>';
-        }
+            $img = '<img src="'.$value['src'].'"/>';
+            $figure = '<a href="./index.php?folder='.$key. '"><figure class ="folder" id="'.$key.'">'. $img .
+            '<figcaption><h2>Folder</h2></figcaption></figure> </a>';
+            $result[] = $figure;
         }
         return $result;
     }
 
-    public function getPicturesInFolders($folder){
-
-        return $this->folders[$folder];
-    }
-
+    public function getPicturesInFolders($folder) {return $this->folders[$folder];}
 
 }
-$path = __DIR__;
-$a = new SearchAlbum($path);
 
-
-
-echo $a->isFolders();
  ?>

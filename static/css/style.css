@@ -3,14 +3,20 @@ body {
     background-color: #2F4F4F;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-areas: ". container ."
+    grid-template-rows: 1fr 10fr 1fr;
+    grid-template-areas: "header header header" ". container ." "footer footer footer";
 
+
+}
+
+header{
+    grid-area: header;
 }
 .container{
     grid-area: container;
 
 }
-
+.image,
 figure {
     position: relative;
 	float: left;
@@ -26,6 +32,7 @@ figure {
 	text-align: center;
 	cursor: pointer;
 }
+div h2,
 figure figcaption {
 	text-transform: uppercase;
 	font-size: 1.25em;
@@ -38,14 +45,16 @@ figure figcaption {
 
 }
 
-
+div h2,
 figure h2{
 
 
-    padding: 50px;
+    opacity: 0;
     transition: transform 0.35s;
-    transform: translate3d(0,30px,0);
+    transform: translate3d(0,30%,0);
 }
+
+div img,
 figure>img{
     position: relative;
     display: block;
@@ -56,14 +65,21 @@ figure>img{
     transform-origin: 50% 50%;
 
 }
-
-
+.image:hover h2{
+    opacity: 1;
+    transition: 0.5s;
+}
+.image:hover img,
 figure:hover img{
 
     transform: scale3d(0.95, 0.95, 1);
 
 }
 figure:hover h2{
-    transform: translate3d(0,0,0);
+    opacity: 1;
+    transform: translate3d(0,15%,0);
 
+}
+footer {
+    grid-area: footer;
 }

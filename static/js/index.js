@@ -1,7 +1,7 @@
 
 
-
-$(".folder").click(function(){
-    var name = $(this).attr('id');
-    alert(name);
-})
+// 
+// $(".folder").click(function(){
+//     var name = $(this).attr('id');
+//
+// })
