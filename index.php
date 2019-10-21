@@ -9,7 +9,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<title>Hello, World!</title>
+
+	<link rel="stylesheet" href="./static/fancybox/jquery.fancybox.min.css"/>
+
+
 	<link rel="stylesheet" href="./static/css/style.css" />
+
 </head>
 <body>
 	<?php include_once('./header.html') ?>
@@ -19,33 +24,40 @@
 			<?php
 
 			if (!$_GET['folder']){
-			if ($album->isFolders() == true){
+			if ($album->isFolders()){
 				foreach ($album->getFolders() as $key => $value) {
 
 					echo $value;
 				}
 			} else {
-				echo '<h1> Файлов нет, но вы держитесь!</h1>';
+				echo '<h1 class="error" > Файлов нет, но вы держитесь!</h1>';
 			}
 
 
 
-		} else {
+		} else if ($album -> folderInFolders($_GET['folder'])) {
 			foreach ($album->getPicturesInFolders($_GET['folder']) as $key => $picture) {
-				$img = '<img src="'.$picture.'"/>';
-	            $div = '<div class ="image">'. $img .'<h2>Увеличить</h2></div>';
+				$img = '<img src="./'.$picture.'"/>';
+	            $div = '<a data-fancybox="gallery" href="./'.$picture.'" class="item-image"><div class="image">'. $img .'<h2>Увеличить</h2></div></a>';
 				echo $div;
 			}
+
+		} else {
+			echo '<h1 class="error" > Такой папки нет, но вы держитесь!</h1>';
+		}{
 
 		}
 
 
 
 			?>
-
 	</div>
 <?php include_once('./footer.html') ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="./static/fancybox/jquery.fancybox.min.js"></script>
+
 <script src="./static/js/index.js"></script>
 
 </body>

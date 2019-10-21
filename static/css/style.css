@@ -1,9 +1,11 @@
 body {
-
+    margin: 0;
     background-color: #2F4F4F;
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    grid-template-rows: 1fr 10fr 1fr;
+    color: white;
+    grid-template-columns: 0.5fr 3fr 1fr;
+    grid-template-rows: 1fr 12fr 1fr;
+    grid-row-gap: 20px;
     grid-template-areas: "header header header" ". container ." "footer footer footer";
 
 
@@ -11,12 +13,29 @@ body {
 
 header{
     grid-area: header;
+    background-color: #0C090A;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    font-size: 1.5rem;
+
+
+}
+header a{
+    text-decoration: none;
+    color: white;
+}
+header nav{
+    align-self: center;
+}
+header div{
+    align-self: center;
 }
 .container{
     grid-area: container;
 
 }
-.image,
+.item-image,
 figure {
     position: relative;
 	float: left;
@@ -50,12 +69,12 @@ figure h2{
 
 
     opacity: 0;
-    transition: transform 0.35s;
+    transition: transform 0.5s;
     transform: translate3d(0,30%,0);
 }
 
 div img,
-figure>img{
+figure img{
     position: relative;
     display: block;
     max-width: 100%;
@@ -82,4 +101,10 @@ figure:hover h2{
 }
 footer {
     grid-area: footer;
+}
+
+.error {
+    color: #fff;
+    text-transform: uppercase;
+
 }

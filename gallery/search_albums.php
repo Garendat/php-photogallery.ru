@@ -2,8 +2,9 @@
 
 
 class SearchAlbum{
-    public $folders = array();
+    private $folders = array();
     private $fileFormats = ['jpg', 'png', 'jpeg', 'gif'];
+    private $faces_folders = array();
 
 
     function __construct($path){
@@ -39,32 +40,38 @@ class SearchAlbum{
 
 
             if($this -> doubleName($nameDir, $fileName)){
-                $pictures['src'] = "$nameDir\\$fileName";
-            } else{
-
-                $pictures[] = "$nameDir\\$fileName";
+                $this-> faces_folders[$nameDir] = "$nameDir\\$fileName";
             }
+
+            $pictures[] = "$nameDir\\$fileName";
+
 
         }
         closedir($album);
-        if(!array_key_exists('src', $pictures) and $pictures){
-            $pictures['src'] = "./". basename(__DIR__)."/alternative.jpg";
+        if(!array_key_exists($nameDir, $this-> faces_folders) and $pictures){
+            $this-> faces_folders[$nameDir] = "./". basename(__DIR__)."/alternative.jpg";
         }
 
         return $pictures;
 
     }
 
-    public function isFolders(){
+    public function isFolders(){   //вывод true или false в зависимости от того есть у нас что-то или нет
         if ($this->folders) return true;
         return false;
-    } //вывод true или false в зависимости от того есть у нас что-то или нет
+    }
+
+
+    public function folderInFolders($folderName){
+        if($this->folders[$folderName]) return true;
+        return false;
+    }
 
     public function getFolders(){
         $result = [];
         foreach ($this->folders as $key => $value) {
 
-            $img = '<img src="'.$value['src'].'"/>';
+            $img = '<img src="'.$this-> faces_folders[$key].'"/>';
             $figure = '<a href="./index.php?folder='.$key. '"><figure class ="folder" id="'.$key.'">'. $img .
             '<figcaption><h2>Folder</h2></figcaption></figure> </a>';
             $result[] = $figure;
