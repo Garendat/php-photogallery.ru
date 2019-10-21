@@ -3,12 +3,18 @@
 	include_once("./$DirName/search_albums.php");
 
 	$album = new SearchAlbum(__DIR__);
+
+	if(!$_GET['folder']){
+		$title = 'Photogallery';
+	} else {
+		$title = $_GET['folder'];
+	}
 ?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-	<title>Hello, World!</title>
+	<title><?php echo $title?></title>
 
 	<link rel="stylesheet" href="./static/fancybox/jquery.fancybox.min.css"/>
 
@@ -52,7 +58,7 @@
 
 			?>
 	</div>
-<?php include_once('./footer.html') ?>
+
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

@@ -73,7 +73,7 @@ class SearchAlbum{
 
             $img = '<img src="'.$this-> faces_folders[$key].'"/>';
             $figure = '<a href="./index.php?folder='.$key. '"><figure class ="folder" id="'.$key.'">'. $img .
-            '<figcaption><h2>Folder</h2></figcaption></figure> </a>';
+            '<figcaption><h2>'.$key.'</h2></figcaption></figure> </a>';
             $result[] = $figure;
         }
         return $result;
